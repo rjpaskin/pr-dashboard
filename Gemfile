@@ -5,6 +5,8 @@ source "https://rubygems.org"
 git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 
 
-gem "sinatra", "~> 2.0"
+gem "dotenv", "~> 2.2", require: "dotenv/load"
+gem "haml", "~> 5.0"
 gem "octokit", "~> 4.8"
-gem "dotenv", "~> 2.2"
+gem "sinatra", "~> 2.0"
+gem "sinatra-contrib", "~> 2.0"
