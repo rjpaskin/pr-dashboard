@@ -1,4 +1,6 @@
+require "logger"
 require "sinatra/reloader" if development?
+require "sinatra/custom_logger"
 require_relative "./pr_dashboard"
 require_relative "./setup"
 
@@ -9,6 +11,7 @@ if development?
   end
 end
 
+set :logger, PRDashboard.logger
 
 helpers do
   def label(text)
