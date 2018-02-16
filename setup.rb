@@ -3,7 +3,9 @@ Octokit.configure do |c|
 end
 
 Octokit.middleware = Faraday::RackBuilder.new do |builder|
-  builder.use Faraday::HttpCache, serializer: Marshal, shared_cache: false
+  builder.use Faraday::HttpCache,
+    serializer: Marshal, shared_cache: false, logger: PRDashboard.logger
+
   builder.use Octokit::Response::RaiseError
   builder.adapter Faraday.default_adapter
 end
