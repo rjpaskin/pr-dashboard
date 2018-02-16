@@ -18,6 +18,7 @@ GEM
     octokit (4.8.0)
       sawyer (~> 0.8.0, >= 0.5.3)
     public_suffix (3.0.1)
+    puma (3.11.2)
     rack (2.0.4)
     rack-protection (2.0.0)
       rack
@@ -47,6 +48,7 @@ DEPENDENCIES
   faraday-http-cache (~> 2.0)
   haml (~> 5.0)
   octokit (~> 4.8)
+  puma (~> 3.11)
   sinatra (~> 2.0)
   sinatra-contrib (~> 2.0)
 

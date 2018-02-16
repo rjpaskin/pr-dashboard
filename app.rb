@@ -12,6 +12,7 @@ if development?
 end
 
 set :logger, PRDashboard.logger
+set :server, :puma
 
 helpers do
   def label(text)
