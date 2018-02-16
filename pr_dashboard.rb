@@ -10,6 +10,6 @@ module PRDashboard
   end
 
   def self.repos
-    @repos ||= config["repos"].map {|name| Repo.new(name) }
+    config["repos"].map {|name| Repo.new(name) }
   end
 end
