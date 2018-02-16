@@ -7,6 +7,8 @@ GEM
     dotenv (2.2.1)
     faraday (0.14.0)
       multipart-post (>= 1.2, < 3)
+    faraday-http-cache (2.0.0)
+      faraday (~> 0.8)
     haml (5.0.4)
       temple (>= 0.8.0)
       tilt
@@ -42,6 +44,7 @@ PLATFORMS
 
 DEPENDENCIES
   dotenv (~> 2.2)
+  faraday-http-cache (~> 2.0)
   haml (~> 5.0)
   octokit (~> 4.8)
   sinatra (~> 2.0)
