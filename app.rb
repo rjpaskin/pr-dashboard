@@ -1,15 +1,11 @@
 require "sinatra/reloader" if development?
 
-%w[repo pull_request].each do |file|
+%w[repo setup].each do |file|
   require_relative "./#{file}"
   also_reload File.expand_path("./#{file}.rb", __dir__)
 end
 
 config = YAML.load_file("config.yml")
-
-Octokit.configure do |c|
-  c.access_token = ENV["GITHUB_ACCESS_TOKEN"]
-end
 
 helpers do
   def label(text)
