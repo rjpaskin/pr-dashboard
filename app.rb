@@ -1,11 +1,14 @@
 require "sinatra/reloader" if development?
+require_relative "./pr_dashboard"
+require_relative "./setup"
 
-%w[repo setup].each do |file|
-  require_relative "./#{file}"
-  also_reload File.expand_path("./#{file}.rb", __dir__)
+if development?
+  Dir["./*.rb"].each do |file|
+    next if File.basename(file) == "app.rb"
+    also_reload File.expand_path("./#{file}.rb", __dir__)
+  end
 end
 
-config = YAML.load_file("config.yml")
 
 helpers do
   def label(text)
@@ -32,7 +35,7 @@ helpers do
 end
 
 get "/" do
-  @repos = config["repos"].map {|name| Repo.new(name) }
+  @repos = PRDashboard.repos
 
   haml :index
 end
