@@ -5,8 +5,45 @@
   %title PR Dashboard
 
   %link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css")
+  %link(rel="stylesheet" href="/application.css")
+  %script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js")
   %script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")
 
+
 %body
-  .container
+  .container-fluid
     = yield
+
+
+    .clearfix
+      - rate_limit = Octokit.rate_limit
+      %small.pull-left
+        Remaining requests:
+        %strong= rate_limit.remaining
+        %br
+        Resets at:
+        %strong= rate_limit.resets_at
+
+      %small.pull-right
+        Refreshing in
+        %strong#refresh-timer
+        seconds
+
+:javascript
+  $(function() {
+    var secondsPassed = 0
+    var refreshLimit = 60 * 2;
+
+    $("#refresh-timer").text(refreshLimit);
+
+    var interval = setInterval(function() {
+      secondsPassed++;
+
+      if (secondsPassed >= refreshLimit) {
+        clearInterval(interval);
+        window.location.reload();
+      }
+
+      $("#refresh-timer").text(refreshLimit - secondsPassed);
+    }, 1000);
+  });

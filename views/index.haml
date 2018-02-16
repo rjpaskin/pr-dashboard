@@ -1,1 +1,53 @@
-index.haml
+%table.table.table-bordered
+  %thead
+    %th Name
+    %th Checks
+    %th Reviews
+    %th Next action
+
+  %tbody
+    - @repos.each do |repo|
+      - next if repo.open_prs.none?
+
+      %tr
+        %th(colspan="5")
+          %h3.h4= repo.name
+
+      - repo.open_prs.each do |pr|
+        %tr
+          %td.clearfix
+            .pull-left= avatar pr.user
+
+            .pull-left
+              = link_to pr.html_url, pr.title
+              %dl.dl-horizontal
+                %dt Merging
+                %dd= pr.head.ref
+                %dt into
+                %dd= pr.base.ref
+
+          %td
+            %ul.list-unstyled
+              - pr.checks.each do |check|
+                %li
+                  = label check.state
+                  = link_to check.target_url, check.description
+
+          %td
+            - if pr.latest_reviews.any?
+              %ul.list-unstyled.avatar-list
+                - pr.latest_reviews.group_by(&:state).each do |state, reviews|
+                  %li
+                    = label state
+                    - reviews.each do |review|
+                      = link_to review.html_url, avatar(review.user)
+            - else
+              %em No reviews added
+
+          %td
+            - if pr.next_action.urls.one?
+              %a.btn.btn-block{ class: "btn-#{pr.next_action.html_class}", href: pr.next_action.url, target: "_blank" }
+                = pr.next_action.text
+
+            - else
+              %p= pr.next_action.text
