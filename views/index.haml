@@ -21,9 +21,9 @@
             .pull-left
               = link_to pr.html_url, pr.title
               %dl.dl-horizontal
-                %dt Merging
+                %dt.text-muted Merging
                 %dd= pr.head.ref
-                %dt into
+                %dt.text-muted into
                 %dd= pr.base.ref
 
             .pull-right.text-muted
@@ -45,7 +45,7 @@
                     - reviews.each do |review|
                       = link_to review.html_url, avatar(review.user)
             - else
-              %em No reviews added
+              %em.text-muted No reviews added
 
           %td
             - if pr.next_action.urls.one?
