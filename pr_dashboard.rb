@@ -1,3 +1,4 @@
+require "logger"
 require_relative "./repo"
 
 module PRDashboard
