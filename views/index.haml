@@ -26,6 +26,9 @@
                 %dt into
                 %dd= pr.base.ref
 
+            .pull-right.text-muted
+              = time_distance pr.created_at
+
           %td
             %ul.list-unstyled
               - pr.checks.each do |check|

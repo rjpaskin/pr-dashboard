@@ -35,6 +35,21 @@ helpers do
   def link_to(url, content)
     %Q{<a href="#{url}" target="_blank">#{content}</a>}
   end
+
+  HOUR = 60
+  DAY = HOUR * 24
+  WEEK = DAY * 7
+
+  def time_distance(time)
+    distance = ((Time.now.utc - time.utc) / 60).floor
+
+    case distance
+    when 0..HOUR then "#{distance}m"
+    when (HOUR + 1)..DAY then "#{distance / HOUR}h"
+    when (DAY + 1)..WEEK then "#{distance / DAY}d"
+    else "#{distance / WEEK}w"
+    end
+  end
 end
 
 get "/" do
